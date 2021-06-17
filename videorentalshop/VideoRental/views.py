@@ -3,8 +3,9 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 
 from VideoRental.models import VideoTape
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from VideoRental.forms import VideoTapeForm
+from django.urls import reverse_lazy
 
 
 class VideoTapeListView(ListView):
@@ -26,3 +27,7 @@ class VideoTapeCreateView(CreateView):
 class VideoTapeUpdateView(UpdateView):
     model = VideoTape
     form_class = VideoTapeForm
+
+class VideoTapeDeleteView(DeleteView):
+    model = VideoTape
+    success_url = reverse_lazy("videotapes:list")
