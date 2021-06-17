@@ -16,6 +16,8 @@ class Command(BaseCommand):
         return {
             "title": data["original_title"],
             "description": data["overview"],
+            "thumbnail": data["poster_path"],
+            "genres": data["genres"]
         }
 
     @retry(stop=stop_after_attempt(3))

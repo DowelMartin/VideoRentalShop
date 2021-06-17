@@ -10,6 +10,7 @@ class VideoTape(models.Model):
     title = models.CharField(max_length=256, verbose_name=_("VideoTape Title"))
     slug = models.SlugField(max_length=256, unique=True, editable=False)
     description = models.TextField(verbose_name=_("VideoTape Description"))
+    genres = models.TextField(verbose_name=_("VideoTape Genres"), null=True)
     thumbnail = models.ImageField(null=True, blank=True)
 
     def save(self, *args, **kwargs):

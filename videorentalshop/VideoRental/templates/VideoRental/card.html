@@ -1,10 +1,9 @@
 <div class="card mb-4 box-shadow">
-{#  <img#}
-{#    class="card-img-top"#}
-{#    src="{{ videotape.thumbnail.url }}"#}
-{#    alt="Thumbanil [100%x225]"#}
-{#    style="height: 225px; width: 100%; display: block;"#}
-{#    >#}
+  <img
+    class="card-img-top"
+    src="https://image.tmdb.org/t/p/original{{ videotape.thumbnail.url }}"
+    alt="Thumbnail [100%x225]"
+    style="height: 225px; width: 100%; display: block;">
   <div class="card-body">
     <p class="card-title text-center">
       <a href="{{ videotape.get_absolute_url }}"> {{videotape.title}} </a>
