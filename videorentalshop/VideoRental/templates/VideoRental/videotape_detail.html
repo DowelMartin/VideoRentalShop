@@ -21,6 +21,12 @@
         <i class="fa fa-edit"></i>Edit
     </a>
 </div>
+ <div>
+    <a href="{%  url 'videotapes:delete' slug=videotape.slug %}"
+       class="btn btn-outline-danger">
+        <i class="fa fa-times"></i>Delete
+    </a>
+</div>
 {% endblock %}
 
 <style>
