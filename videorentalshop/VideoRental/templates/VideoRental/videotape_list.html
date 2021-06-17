@@ -1,0 +1,11 @@
+{% extends "base.html"%}
+
+{% block content %}
+  <div class="row">
+    {% for videotape in videotapes %}
+    <div class="col-md-4">
+      {% include "VideoRental/card.html" with videotape=videotape %}
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
