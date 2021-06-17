@@ -6,6 +6,8 @@ whitenoise==5.2.0  # https://github.com/evansd/whitenoise
 redis==3.5.3  # https://github.com/andymccurdy/redis-py
 uvicorn[standard]==0.13.4  # https://github.com/encode/uvicorn
 Unidecode==1.2.0
+tenacity==5.1.4 # https://github.com/jd/tenacity
+requests==2.25.1 # https://github.com/psf/requests
 
 # Django
 # ------------------------------------------------------------------------------
