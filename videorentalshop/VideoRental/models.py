@@ -24,5 +24,8 @@ class VideoTape(models.Model):
 
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("videotapes:detail", kwargs={"slug": self.slug})
+
     def __str__(self):
         return self.title

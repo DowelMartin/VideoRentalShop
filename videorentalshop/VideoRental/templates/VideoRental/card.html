@@ -6,6 +6,9 @@
     style="height: 225px; width: 100%; display: block;"
     >
   <div class="card-body">
-    <p class="card-title text-center"> {{videotape.title}}</p>
+    <p class="card-title text-center">
+      <a href="{{ videotape.get_absolute_url }}"> {{videotape.title}} </a>
+    </p>
   </div>
 </div>
+
