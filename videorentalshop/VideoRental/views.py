@@ -3,6 +3,8 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 
 from VideoRental.models import VideoTape
+from django.views.generic.edit import CreateView, UpdateView
+from VideoRental.forms import VideoTapeForm
 
 
 class VideoTapeListView(ListView):
@@ -15,3 +17,12 @@ class VideoTapeListView(ListView):
 class VideoTapeDetailView(DetailView):
     model = VideoTape
 
+
+class VideoTapeCreateView(CreateView):
+    model = VideoTape
+    form_class = VideoTapeForm
+
+
+class VideoTapeUpdateView(UpdateView):
+    model = VideoTape
+    form_class = VideoTapeForm

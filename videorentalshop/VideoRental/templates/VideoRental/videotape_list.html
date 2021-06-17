@@ -1,6 +1,12 @@
 {% extends "base.html"%}
 
 {% block content %}
+    <div>
+  <a href="{%  url 'videotapes:create' %}"
+     class = "btn btn-outline-primary">
+    <i class="fa fa-edit"></i>Create
+  </a>
+  </div>
   <div class="row">
     {% for videotape in videotapes %}
     <div class="col-md-4">
