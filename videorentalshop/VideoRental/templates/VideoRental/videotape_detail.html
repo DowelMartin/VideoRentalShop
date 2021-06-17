@@ -1,31 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="card">
+<div class="card">
     <div class="card-horizontal">
-      <div class="img-square-wrapper">
-        <img class=""
-             src="{{ videotape.thumbnail.url }}"
-             alt="Card image cap"
-             >
-      </div>
-      <div class="card-body">
-        <h4 class="card-title"> {{ videotape.title }} </h4>
-        <p class="card-text"> {{ videotape.description }} </p>
-      </div>
+        <div class="img-square-wrapper">
+            <img class=""
+                 src="{{ videotape.thumbnail.url }}"
+                 alt="Card image cap"
+            >
+        </div>
+        <div class="card-body">
+            <h4 class="card-title"> {{ videotape.title }} </h4>
+            <p class="card-text"> {{ videotape.description }} </p>
+        </div>
     </div>
-  </div>
-  <div>
-  <a href="{%  url 'videotapes:update' slug=videotape.slug %}"
-     class = "btn btn-outline-primary">
-    <i class="fa fa-edit"></i>Edit
-  </a>
-  </div>
+</div>
+<div>
+    <a href="{%  url 'videotapes:update' slug=videotape.slug %}"
+       class="btn btn-outline-primary">
+        <i class="fa fa-edit"></i>Edit
+    </a>
+</div>
 {% endblock %}
 
-  <style>
+<style>
     .card-horizontal {
-      display: flex;
-      flex: 1 1 auto;
+        display: flex;
+        flex: 1 1 auto;
     }
-  </style>
+</style>

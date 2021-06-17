@@ -6,7 +6,7 @@ from VideoRental.utils import generate_slug
 
 
 class VideoTape(models.Model):
-    """Product model class"""
+    """VideoTape model class"""
     title = models.CharField(max_length=256, verbose_name=_("VideoTape Title"))
     slug = models.SlugField(max_length=256, unique=True, editable=False)
     description = models.TextField(verbose_name=_("VideoTape Description"))
