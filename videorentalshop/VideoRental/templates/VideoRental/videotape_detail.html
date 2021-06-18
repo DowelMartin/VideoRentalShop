@@ -1,32 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card">
-  <div class="card-horizontal">
-    <div class="img-square-wrapper">
-      <img class=""
-           src="https://image.tmdb.org/t/p/original{{ videotape.thumbnail.url }}"
-           alt="Card image cap"
-           style="height: 700px; width: 100%; display: block;" >
-    </div>
-    <div class="card-body">
-      <h4 class="card-title"> {{ videotape.title }} </h4>
-      <p class="card-text"> <b>Description:</b> {{ videotape.description }} </p>
-      <p class="card-text"> <b>Genres:</b> {{ videotape.genres }} </p>
-    </div>
-  </div>
-</div>
+{% if request.user.is_superuser %}
 <div>
   <a href="{%  url 'videotapes:update' slug=videotape.slug %}"
      class="btn btn-outline-primary">
     <i class="fa fa-edit"></i>Edit
   </a>
-</div>
-<div>
   <a href="{%  url 'videotapes:delete' slug=videotape.slug %}"
      class="btn btn-outline-danger">
     <i class="fa fa-times"></i>Delete
   </a>
+</div>
+{% endif %}
+<div class="card">
+  <div class="card-horizontal">
+    <div class="img-square-wrapper">
+      {% if videotape.thumbnail %}
+      <img class=""
+           src="https://image.tmdb.org/t/p/original{{ videotape.thumbnail.url }}"
+           alt="Card image cap"
+           style="height: 700px; width: 100%; display: block;">
+      {% else %}
+      <img class=""
+           src="https://i.ibb.co/bPT93gw/test.jpg"
+           alt="Stock card image cap"
+           style="height: 700px; width: 100%; display: block;">
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <h4 class="card-title"> {{ videotape.title }} </h4>
+      <p class="card-text"><b>Description:</b> {{ videotape.description }} </p>
+      <p class="card-text"><b>Genres:</b> {{ videotape.genres }} </p>
+    </div>
+  </div>
 </div>
 {% endblock %}
 

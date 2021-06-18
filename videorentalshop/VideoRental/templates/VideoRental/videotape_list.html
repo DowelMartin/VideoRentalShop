@@ -1,17 +1,19 @@
 {% extends "base.html"%}
 
 {% block content %}
-    <div>
+<div>
+  {% if request.user.is_superuser %}
   <a href="{%  url 'videotapes:create' %}"
-     class = "btn btn-outline-primary">
+     class="btn btn-outline-primary">
     <i class="fa fa-edit"></i>Create
   </a>
+  {% endif %}
+</div>
+<div class="row">
+  {% for videotape in videotapes %}
+  <div class="col-md-4">
+    {% include "VideoRental/card.html" with videotape=videotape %}
   </div>
-  <div class="row">
-    {% for videotape in videotapes %}
-    <div class="col-md-4">
-      {% include "VideoRental/card.html" with videotape=videotape %}
-    </div>
-    {% endfor %}
-  </div>
+  {% endfor %}
+</div>
 {% endblock %}

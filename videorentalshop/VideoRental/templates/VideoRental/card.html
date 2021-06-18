@@ -1,9 +1,16 @@
 <div class="card mb-4 box-shadow">
+  {% if videotape.thumbnail %}
   <img
     class="card-img-top"
     src="https://image.tmdb.org/t/p/original{{ videotape.thumbnail.url }}"
     alt="Thumbnail [100%x225]"
-    style="height: 225px; width: 100%; display: block;">
+    style="height: 400px; width: 100%; display: block;">
+  {% else %}
+  <img class=""
+       src="https://i.ibb.co/bPT93gw/test.jpg"
+       alt="Stock thumbnail"
+       style="height: 400px; width: 100%; display: block;">
+  {% endif %}
   <div class="card-body">
     <p class="card-title text-center">
       <a href="{{ videotape.get_absolute_url }}"> {{videotape.title}} </a>
