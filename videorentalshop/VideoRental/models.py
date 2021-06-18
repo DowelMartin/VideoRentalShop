@@ -11,7 +11,7 @@ class VideoTape(models.Model):
     slug = models.SlugField(max_length=256, unique=True, editable=False)
     description = models.TextField(verbose_name=_("VideoTape Description"))
     genres = models.TextField(verbose_name=_("VideoTape Genres"), null=True)
-    thumbnail = models.ImageField(null=True, blank=True)
+    thumbnail = models.URLField(null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

@@ -16,7 +16,7 @@ class Command(BaseCommand):
         return {
             "title": data["original_title"],
             "description": data["overview"],
-            "thumbnail": data["poster_path"],
+            "thumbnail": "https://image.tmdb.org/t/p/original" + data["poster_path"],
             "genres": data["genres"]
         }
 

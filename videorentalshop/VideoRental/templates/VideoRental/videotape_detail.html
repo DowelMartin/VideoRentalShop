@@ -13,12 +13,13 @@
   </a>
 </div>
 {% endif %}
+<p>{{ request.user }}</p>
 <div class="card">
   <div class="card-horizontal">
     <div class="img-square-wrapper">
       {% if videotape.thumbnail %}
       <img class=""
-           src="https://image.tmdb.org/t/p/original{{ videotape.thumbnail.url }}"
+           src="{{ videotape.thumbnail }}"
            alt="Card image cap"
            style="height: 700px; width: 100%; display: block;">
       {% else %}

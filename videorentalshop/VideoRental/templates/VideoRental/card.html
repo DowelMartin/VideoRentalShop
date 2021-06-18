@@ -2,7 +2,7 @@
   {% if videotape.thumbnail %}
   <img
     class="card-img-top"
-    src="https://image.tmdb.org/t/p/original{{ videotape.thumbnail.url }}"
+    src="{{ videotape.thumbnail }}"
     alt="Thumbnail [100%x225]"
     style="height: 400px; width: 100%; display: block;">
   {% else %}
