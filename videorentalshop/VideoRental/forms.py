@@ -20,7 +20,7 @@ class ReservationForm(ModelForm):
 
         self.request = kwargs.pop('request')
         super(ReservationForm, self).__init__(*args, **kwargs)
-        self.fields['user'].queryset = User.objects.filter(user=self.request.user)
+        self.fields['user'].queryset = User.objects.filter(id=self.request.user.id)
 
     class Meta:
         model = Reservation
