@@ -1,11 +1,12 @@
-from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-
-from VideoRental.models import VideoTape
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from VideoRental.forms import VideoTapeForm
 from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from VideoRental.models import VideoTape, Reservation
+from VideoRental.forms import VideoTapeForm, ReservationForm
+
+from videorentalshop.users.models import User
 
 
 class VideoTapeListView(ListView):
@@ -28,6 +29,29 @@ class VideoTapeUpdateView(UpdateView):
     model = VideoTape
     form_class = VideoTapeForm
 
+
 class VideoTapeDeleteView(DeleteView):
     model = VideoTape
     success_url = reverse_lazy("videotapes:list")
+
+
+class ReservationListView(ListView):
+    model = Reservation
+    paginate_by = 100
+
+    context_object_name = "reservations"
+
+
+class ReservationCreateView(CreateView):
+    model = Reservation
+    form_class = ReservationForm
+
+    def get_form_kwargs(self):
+        """ Passes the request object to the form class.
+         This is necessary to only display members that belong to a given user"""
+        kwargs = super(ReservationCreateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+
+

@@ -28,8 +28,7 @@ class UserAdmin(auth_admin.UserAdmin):
                 ),
             },
         ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined", "videotapes")}),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     list_display = ["username", "name", "is_superuser"]
-    filter_horizontal = ["videotapes"]
     search_fields = ["name"]
