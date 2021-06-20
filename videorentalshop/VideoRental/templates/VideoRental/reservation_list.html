@@ -1,15 +1,14 @@
 {% extends "base.html"%}
 
 {% block content %}
+
 <div class="row">
   {% for reservation in reservations %}
+  {% if request.user == reservation.user %}
   <div class="col-md-4">
-    {% if request.user == reservation.user %}
-      {{  reservation.time_of_booking }}
-      {{  reservation.videotape }}
-      {{  reservation.user }}
-    {% endif %}
+    {% include "VideoRental/reservation_card.html" with reservation=reservation %}
   </div>
+  {% endif %}
   {% endfor %}
 </div>
 {% endblock %}

@@ -44,8 +44,9 @@ class VideoTape(models.Model):
 
 class Reservation(models.Model):
     time_of_booking = models.DateField(editable=False, default=datetime.date.today())
-    videotape = models.ForeignKey(VideoTape, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    videotape = models.ForeignKey(VideoTape, on_delete=models.CASCADE, blank = False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank= False)
+    # is_active (after 3 days - false)
 
     def get_absolute_url(self):
         return reverse("videotapes:reservation_list")

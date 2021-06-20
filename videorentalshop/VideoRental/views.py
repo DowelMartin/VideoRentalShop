@@ -6,8 +6,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from VideoRental.models import VideoTape, Reservation
 from VideoRental.forms import VideoTapeForm, ReservationForm
 
-from videorentalshop.users.models import User
-
 
 class VideoTapeListView(ListView):
     model = VideoTape
