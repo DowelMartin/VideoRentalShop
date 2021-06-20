@@ -13,9 +13,11 @@
   {% endif %}
   <div class="card-body">
     <p class="card-title text-center">
-    <p><b>Start Date:</b> {{ reservation.time_of_booking }} </p>
     <p><b>VideoTape:</b> {{ reservation.videotape }}</p>
     <p><b>User: </b> {{ reservation.user }}</p>
+    <p><b>Start: </b> {{ reservation.time_of_booking }}</p>
+    <p><b>End: </b> {{ reservation.end_of_booking }}</p>
+    <p><b>Active: </b> {{ reservation.is_active }}</p>
     </p>
   </div>
 </div>

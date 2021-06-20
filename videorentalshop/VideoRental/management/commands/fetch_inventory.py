@@ -16,8 +16,11 @@ class Command(BaseCommand):
         return {
             "title": data["original_title"],
             "description": data["overview"],
-            "thumbnail": "https://image.tmdb.org/t/p/original" + data["poster_path"],
-            "genres": data["genres"]
+            "genres": data["genres"],
+            "production_countries": data["production_countries"],
+            "release_date": data["release_date"],
+            "vote_average": data["vote_average"],
+            "thumbnail": "https://image.tmdb.org/t/p/original" + data["poster_path"]
         }
 
     @retry(stop=stop_after_attempt(3))

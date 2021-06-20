@@ -6,9 +6,20 @@
   {% for reservation in reservations %}
   {% if request.user == reservation.user %}
   <div class="col-md-4">
-    {% include "VideoRental/reservation_card.html" with reservation=reservation %}
+    {% if reservation.is_active == True %}
+    <div>
+      <p> ACTIVE </p>
+      {% include "VideoRental/reservation_card.html" with reservation=reservation %}
+    </div>
+    {% else %}
+    <div>
+      <p> HISTORY </p>
+      {% include "VideoRental/reservation_card.html" with reservation=reservation %}
+    </div>
+    {% endif %}
   </div>
   {% endif %}
   {% endfor %}
 </div>
 {% endblock %}
+

@@ -1,6 +1,5 @@
 import datetime
-
-import requests
+import ast
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
@@ -11,11 +10,32 @@ from videorentalshop.users.models import User
 
 class VideoTape(models.Model):
     """VideoTape model class"""
-    title = models.CharField(max_length=256, verbose_name=_("VideoTape Title"))
+    title = models.CharField(max_length=256, verbose_name=_("Title"))
     slug = models.SlugField(max_length=256, unique=True, editable=False)
-    description = models.TextField(verbose_name=_("VideoTape Description"))
-    genres = models.TextField(verbose_name=_("VideoTape Genres"), null=True)
-    thumbnail = models.URLField(null=True)
+    description = models.TextField(verbose_name=_("Description"))
+    genres = models.TextField(verbose_name=_("Genres"), null=True)
+    production_countries = models.TextField(verbose_name=_("Production Countries"), null=True, blank=True)
+    release_date = models.DateField(verbose_name=_("Release Date"), null=True, blank=True)
+    vote_average = models.FloatField(verbose_name=_("Vote Average"), null=True, blank=True)
+    thumbnail = models.URLField(verbose_name=_("Poster"), null=True, blank=True)
+
+    @property
+    def correct_genres(self):
+        corrected_genres = ast.literal_eval(self.genres)
+        list = []
+        for genre in corrected_genres:
+            correct_genre = genre.get('name')
+            list.append(correct_genre)
+        return list
+
+    @property
+    def correct_production_countries(self):
+        corrected_production_countries = ast.literal_eval(self.production_countries)
+        list = []
+        for count in corrected_production_countries:
+            correct_production_country = count.get('name')
+            list.append(correct_production_country)
+        return list
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -43,10 +63,20 @@ class VideoTape(models.Model):
 
 
 class Reservation(models.Model):
-    time_of_booking = models.DateField(editable=False, default=datetime.date.today())
+    time_of_booking = models.DateField(editable=False)
+    end_of_booking = models.DateField(editable=False)
     videotape = models.ForeignKey(VideoTape, on_delete=models.CASCADE, blank = False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank= False)
-    # is_active (after 3 days - false)
+
+    @property
+    def is_active(self):
+        return datetime.date.today() < self.end_of_booking
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.time_of_booking = datetime.date.today()
+            self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
+        return super(Reservation, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("videotapes:reservation_list")
