@@ -1,0 +1,21 @@
+{% extends "base.html"%}
+
+{% block content %}
+
+<div class="row">
+  <a href="{%  url 'videotapes:create_rental'%}"
+     class="btn btn-outline-danger">
+    <i class="fa fa-times"></i>Rent
+  </a>
+  {% for rental in rentals %}
+  <div class="col-md-4">
+      <p> {{ rental.time_of_rent }} </p>
+      <p> {{ rental.end_of_rent }} </p>
+      <p> {{ rental.reservation }} </p>
+      <p> {{ rental.is_returned }} </p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+

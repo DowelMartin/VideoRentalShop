@@ -3,8 +3,8 @@ from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from VideoRental.models import VideoTape, Reservation
-from VideoRental.forms import VideoTapeForm, ReservationForm
+from VideoRental.models import VideoTape, Reservation, Rental
+from VideoRental.forms import VideoTapeForm, ReservationForm, RentalForm
 
 
 class VideoTapeListView(ListView):
@@ -50,6 +50,17 @@ class ReservationCreateView(CreateView):
         kwargs = super(ReservationCreateView, self).get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
+
+
+class RentalListView(ListView):
+    model = Rental
+
+    context_object_name = "rentals"
+
+
+class RentalCreateView(CreateView):
+    model = Rental
+    form_class = RentalForm
 
 
 
