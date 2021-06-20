@@ -1,5 +1,7 @@
 import datetime
 import ast
+
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
@@ -18,6 +20,7 @@ class VideoTape(models.Model):
     release_date = models.DateField(verbose_name=_("Release Date"), null=True, blank=True)
     vote_average = models.FloatField(verbose_name=_("Vote Average"), null=True, blank=True)
     thumbnail = models.URLField(verbose_name=_("Poster"), null=True, blank=True)
+    quantity = models.IntegerField(verbose_name=_("Quantity"), validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     @property
     def correct_genres(self):
@@ -76,7 +79,12 @@ class Reservation(models.Model):
         if not self.pk:
             self.time_of_booking = datetime.date.today()
             self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
+            self.videotape.quantity -= 1
+            self.videotape.save()
         return super(Reservation, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("videotapes:reservation_list")
+
+    def __str__(self):
+        return self.videotape.title + ": " + self.user.username

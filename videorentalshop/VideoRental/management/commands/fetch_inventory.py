@@ -1,4 +1,6 @@
 import logging
+import random
+
 import requests
 from django.core.management.base import BaseCommand, CommandError
 from tenacity import retry, stop_after_attempt
@@ -20,7 +22,8 @@ class Command(BaseCommand):
             "production_countries": data["production_countries"],
             "release_date": data["release_date"],
             "vote_average": data["vote_average"],
-            "thumbnail": "https://image.tmdb.org/t/p/original" + data["poster_path"]
+            "thumbnail": "https://image.tmdb.org/t/p/original" + data["poster_path"],
+            "quantity": random.randint(1,10)
         }
 
     @retry(stop=stop_after_attempt(3))
