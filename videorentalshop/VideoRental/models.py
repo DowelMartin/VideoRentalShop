@@ -70,10 +70,20 @@ class Reservation(models.Model):
     end_of_booking = models.DateField(editable=False)
     videotape = models.ForeignKey(VideoTape, on_delete=models.CASCADE, blank = False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank= False)
+    isactive = models.BooleanField(default=True, blank=False)
 
     @property
     def is_active(self):
-        return datetime.date.today() < self.end_of_booking
+        if datetime.date.today() < self.end_of_booking:
+            return datetime.date.today() < self.end_of_booking
+        elif (datetime.date.today() > self.end_of_booking) and self.isactive is True:
+            self.isactive = False
+            self.videotape.quantity += 1
+            self.save()
+            self.videotape.save()
+            return datetime.date.today() < self.end_of_booking
+        else:
+            return datetime.date.today() < self.end_of_booking
 
     def save(self, *args, **kwargs):
         if not self.pk:
