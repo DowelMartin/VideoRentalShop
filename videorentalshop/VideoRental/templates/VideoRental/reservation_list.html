@@ -3,21 +3,31 @@
 {% block content %}
 
 <div class="row">
+  <h3 style="color:#cccecf"> ACTIVE RESERVATIONS: </h3>
   {% for reservation in reservations %}
   {% if request.user == reservation.user %}
+  {% if reservation.is_active %}
   <div class="col-md-4">
-    {% if reservation.is_active == True %}
-    <div>
-      <p> ACTIVE </p>
+    <div class="card-group">
       {% include "VideoRental/reservation_card.html" with reservation=reservation %}
     </div>
-    {% else %}
-    <div>
-      <p> HISTORY </p>
-      {% include "VideoRental/reservation_card.html" with reservation=reservation %}
-    </div>
-    {% endif %}
   </div>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+</div>
+
+<div class="row">
+  <h3 style="color:#cccecf"> PAST RESERVATIONS: </h3>
+  {% for reservation in reservations %}
+  {% if request.user == reservation.user %}
+  {% if reservation.is_active == False %}
+  <div class="col-md-4">
+    <div class="card-group">
+      {% include "VideoRental/reservation_card.html" with reservation=reservation %}
+    </div>
+  </div>
+  {% endif %}
   {% endif %}
   {% endfor %}
 </div>

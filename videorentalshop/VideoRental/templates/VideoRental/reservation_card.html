@@ -1,4 +1,4 @@
-<div class="card mb-4 box-shadow">
+<div class="card mb-4 box-shadow bg-dark">
   {% if reservation.videotape.thumbnail %}
   <img
     class="card-img-top"
@@ -11,13 +11,18 @@
        alt="Stock thumbnail"
        style="height: 400px; width: 100%; display: block;">
   {% endif %}
-  <div class="card-body">
-    <p class="card-title text-center">
-    <p><b>VideoTape:</b> {{ reservation.videotape }}</p>
-    <p><b>User: </b> {{ reservation.user }}</p>
-    <p><b>Start: </b> {{ reservation.time_of_booking }}</p>
-    <p><b>End: </b> {{ reservation.end_of_booking }}</p>
-    <p><b>Active: </b> {{ reservation.is_active }}</p>
+  <div class="card-body text-center" style="color:#cccecf">
+    <h4 class="card-title" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis">
+      {{ reservation.videotape }} </h4>
+    <h5><b>User: </b> {{ reservation.user }}</h5>
+    <h5><b>Start: </b> {{ reservation.time_of_booking }}</h5>
+    <h5><b>End: </b> {{ reservation.end_of_booking }}</h5>
+    Active:
+      {% if reservation.is_active %}
+    <h5 style="color:green"> {{ reservation.is_active }}</h5>
+    {% else %}
+    <h5 style="color:red"> {{ reservation.is_active }}</h5>
+    {% endif %}
     </p>
   </div>
 </div>

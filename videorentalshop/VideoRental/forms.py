@@ -36,6 +36,7 @@ class RentalForm(ModelForm):
         super(RentalForm, self).__init__(*args, **kwargs)
         self.fields['time_of_rent'].widget = HiddenInput()
         self.fields['return_helper'].widget = HiddenInput()
+
     class Meta:
         model = Rental
         fields = '__all__'
