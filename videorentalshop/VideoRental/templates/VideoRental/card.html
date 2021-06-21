@@ -1,3 +1,4 @@
+<a href="{{ videotape.get_absolute_url }}">
 <div class="card mb-4 box-shadow">
   {% if videotape.thumbnail %}
   <img
@@ -13,8 +14,8 @@
   {% endif %}
   <div class="card-body">
     <p class="card-title text-center">
-      <a href="{{ videotape.get_absolute_url }}"> {{videotape.title}} </a>
+      {{videotape.title}}
     </p>
   </div>
 </div>
-
+</a>

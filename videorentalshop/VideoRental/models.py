@@ -70,15 +70,12 @@ class Reservation(models.Model):
             return datetime.date.today() < self.end_of_booking
 
     def save(self, *args, **kwargs):
-        if self.videotape.quantity > 0:
-            if not self.pk:
-                self.time_of_booking = datetime.date.today()
-                self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
-                self.videotape.quantity -= 1
-                self.videotape.save()
-            return super(Reservation, self).save(*args, **kwargs)
-        else:
-            raise ValidationError('No copies available!')
+        if not self.pk:
+            self.time_of_booking = datetime.date.today()
+            self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
+            self.videotape.quantity -= 1
+            self.videotape.save()
+        return super(Reservation, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("videotapes:reservation_list")
