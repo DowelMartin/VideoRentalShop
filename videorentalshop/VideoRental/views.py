@@ -45,8 +45,7 @@ class ReservationCreateView(CreateView):
     form_class = ReservationForm
 
     def get_form_kwargs(self):
-        """ Passes the request object to the form class.
-         This is necessary to only display members that belong to a given user"""
+        """ Passes the request object to the form class."""
         kwargs = super(ReservationCreateView, self).get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs

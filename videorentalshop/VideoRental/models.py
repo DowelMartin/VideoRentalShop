@@ -12,7 +12,7 @@ from videorentalshop.users.models import User
 
 
 class VideoTape(models.Model):
-    """VideoTape model class"""
+    """VideoTape model class."""
     title = models.CharField(max_length=256, verbose_name=_("Title"))
     slug = models.SlugField(max_length=256, unique=True, editable=False)
     description = models.TextField(verbose_name=_("Description"))
@@ -24,6 +24,7 @@ class VideoTape(models.Model):
     quantity = models.IntegerField(verbose_name=_("Quantity"), validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     def save(self, *args, **kwargs):
+        """ Custom save method for VideoTape object. """
         if not self.slug:
             base = self.title.strip()
             for candidate in generate_slug(base):
@@ -49,6 +50,7 @@ class VideoTape(models.Model):
 
 
 class Reservation(models.Model):
+    """Reservation model class."""
     time_of_booking = models.DateField(editable=False)
     end_of_booking = models.DateField(editable=False)
     videotape = models.ForeignKey(VideoTape, on_delete=models.CASCADE, blank=False)
@@ -58,6 +60,13 @@ class Reservation(models.Model):
 
     @property
     def is_active(self):
+        """Property to check if the reservation is still active.
+        Checks whether 3 days have elapsed from the time of booking to today.
+
+        Returns:
+            bool: True: if reservation is still active, False: if not.
+
+        """
         if datetime.date.today() < self.end_of_booking:
             return datetime.date.today() < self.end_of_booking
         elif (datetime.date.today() > self.end_of_booking) and self.isactive is True:
@@ -70,6 +79,7 @@ class Reservation(models.Model):
             return datetime.date.today() < self.end_of_booking
 
     def save(self, *args, **kwargs):
+        """ Custom save method for Reservation object. """
         if not self.pk:
             self.time_of_booking = datetime.date.today()
             self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
@@ -78,6 +88,7 @@ class Reservation(models.Model):
         return super(Reservation, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
+        """Get url for Reservation's list view."""
         return reverse("videotapes:reservation_list")
 
     def __str__(self):
@@ -85,6 +96,7 @@ class Reservation(models.Model):
 
 
 class Rental(models.Model):
+    """Rental model class"""
     time_of_rent = models.DateField(editable=False)
     end_of_rent = models.DateField(editable=False, blank=False, null=False)
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, blank=False)
@@ -93,6 +105,12 @@ class Rental(models.Model):
 
     @property
     def is_returned(self):
+        """Property to check if the rented VideoTape has been returned.
+
+        Returns:
+            bool: True: if VideoTape has been returned, False: if not.
+
+        """
         if self.isreturned is True and self.return_helper is False:
             self.reservation.videotape.quantity += 1
             self.return_helper = True
@@ -103,6 +121,7 @@ class Rental(models.Model):
             return self.isreturned
 
     def save(self, *args, **kwargs):
+        """ Custom save method for Rental object """
         if not self.pk:
             self.time_of_rent = datetime.date.today()
             self.end_of_rent = self.time_of_rent + datetime.timedelta(days=7)
@@ -111,6 +130,7 @@ class Rental(models.Model):
         return super(Rental, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
+        """Get url for Rental's list view."""
         return reverse("videotapes:rental_list")
 
     def __str__(self):
