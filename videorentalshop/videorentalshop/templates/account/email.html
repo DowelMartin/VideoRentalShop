@@ -7,7 +7,7 @@
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block inner %}
-<h1>{% trans "E-mail Addresses" %}</h1>
+<h1 class="font-weight-light">{% trans "E-mail Addresses" %}</h1>
 
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -48,7 +48,7 @@
 {% endif %}
 
 
-    <h2>{% trans "Add E-mail Address" %}</h2>
+    <h2 class="font-weight-light">{% trans "Add E-mail Address" %}</h2>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
