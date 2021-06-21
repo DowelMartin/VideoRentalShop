@@ -5,7 +5,9 @@
 
 {% block content %}
 </br>
-<div class="container text-center text-light">
+<div class="container">
+  <div class="card border-0 shadow my-5">
+    <div class="card-body p-5">
 
   {% if object == request.user %}
   <!-- Action buttons -->
@@ -41,7 +43,7 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <h2>
+      <h2 class="font-weight-light">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-info-square"
              viewBox="0 0 16 16">
           <path
@@ -51,13 +53,15 @@
         </svg>
         Profile Info:
       </h2>
-      <h3>Username: {{ object.username }}</h3>
+      <h3 class="font-weight-light">Username: {{ object.username }}</h3>
       {% if object.name %}
-      <h3>Name: {{ object.name }}</h3>
+      <h3 class="font-weight-light">Name: {{ object.name }}</h3>
       {% endif %}
     </div>
   </div>
 
 
+    </div>
+  </div>
 </div>
 {% endblock content %}

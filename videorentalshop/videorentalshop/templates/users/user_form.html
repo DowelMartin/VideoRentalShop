@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="card border-0 shadow my-5">
+    <div class="card-body p-5">
 {% load crispy_forms_tags %}
 
-{% block title %}{{ user.username }}{% endblock %}
 
-{% block content %}
-  <h1>{{ user.username }}</h1>
+
+  <h1 class="font-weight-light">{{ user.username }}</h1>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
     {% csrf_token %}
     {{ form|crispy }}
@@ -14,4 +18,11 @@
       </div>
     </div>
   </form>
+
+     <div class="mb-auto" style="height: 20px"></div>
+      <p class="lead mb-0" style="font-size:18px; text-align: center">Software engineering project by Marcin Kołek & Ireneusz Przybyło</p>
+    </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
