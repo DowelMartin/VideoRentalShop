@@ -85,7 +85,7 @@ class Reservation(models.Model):
 
 
 class Rental(models.Model):
-    time_of_rent = models.DateField(null=False, blank=False)
+    time_of_rent = models.DateField(editable=False)
     end_of_rent = models.DateField(editable=False, blank=False, null=False)
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, blank=False)
     isreturned = models.BooleanField(default=False, blank=False)

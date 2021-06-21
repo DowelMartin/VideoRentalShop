@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
+<h4 class="text-center" style="color: #cccecf;"> Please select the movie you want to reserve,</br> then confirm your choice with the "Make a reservation" button. </h4>
+</br>
+<form method="post" enctype="multipart/form-data" class="text-center" style="color: #cccecf; font-size: x-large">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Send message2">
+
+    <input type="submit" class="btn btn-info" value="Make a reservation" style="font-size: large">
 </form>
 {% endblock %}

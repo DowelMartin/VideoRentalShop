@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
+<h3 class="text-center" style="color: #cccecf;"> Simple Rental Form </h3>
+</br>
+<form method="post" enctype="multipart/form-data" class="text-center" style="color: #cccecf; font-size: x-large">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Send message3">
+    <input type="submit" class="btn btn-info" value="Rent" style="font-size: large">
 </form>
 {% endblock %}
