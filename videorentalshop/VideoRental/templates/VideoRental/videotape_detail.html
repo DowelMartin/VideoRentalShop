@@ -31,14 +31,8 @@
     <div class="card-body">
       <h4 class="card-title"> {{ videotape.title }} </h4>
       <p class="card-text"><b>Description:</b> {{ videotape.description }} </p>
-      <p class="card-text"><b>Genres:</b>
-        {% for genre in videotape.correct_genres %}
-        {{ genre }};
-        {% endfor %}
-      <p class="card-text"><b>Production countries:</b>
-        {% for production_country in videotape.correct_production_countries %}
-        {{ production_country }};
-        {% endfor %}
+      <p class="card-text"><b>Genres:</b> {{ videotape.genres }} </p>
+      <p class="card-text"><b>Production countries:</b> {{ videotape.production_countries }} </p>
       <p class="card-text"><b>Release date:</b> {{ videotape.release_date }} </p>
       <p class="card-text"><b>Vote average:</b> {{ videotape.vote_average }} </p>
       <p class="card-text"><b>Quantity:</b> {{ videotape.quantity }} </p>

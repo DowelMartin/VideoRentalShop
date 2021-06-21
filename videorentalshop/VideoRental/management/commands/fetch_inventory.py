@@ -7,6 +7,15 @@ from tenacity import retry, stop_after_attempt
 from VideoRental.models import VideoTape
 
 
+def convert(given_list):
+    new_list = []
+    for item in given_list:
+        correct_item = item.get('name')
+        new_list.append(correct_item)
+    listToStr = ', '.join([str(elem) for elem in new_list])
+    return listToStr
+
+
 class Command(BaseCommand):
     help = "Fetch inventory from themoviedb"
 
@@ -18,8 +27,8 @@ class Command(BaseCommand):
         return {
             "title": data["original_title"],
             "description": data["overview"],
-            "genres": data["genres"],
-            "production_countries": data["production_countries"],
+            "genres": convert(data["genres"]),
+            "production_countries": convert(data["production_countries"]),
             "release_date": data["release_date"],
             "vote_average": data["vote_average"],
             "thumbnail": "https://image.tmdb.org/t/p/original" + data["poster_path"],

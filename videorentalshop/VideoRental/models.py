@@ -1,6 +1,7 @@
 import datetime
 import ast
 
+from cfgv import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.conf import settings
@@ -21,24 +22,6 @@ class VideoTape(models.Model):
     vote_average = models.FloatField(verbose_name=_("Vote Average"), null=True, blank=True)
     thumbnail = models.URLField(verbose_name=_("Poster"), null=True, blank=True)
     quantity = models.IntegerField(verbose_name=_("Quantity"), validators=[MinValueValidator(1), MaxValueValidator(10)])
-
-    @property
-    def correct_genres(self):
-        corrected_genres = ast.literal_eval(self.genres)
-        list = []
-        for genre in corrected_genres:
-            correct_genre = genre.get('name')
-            list.append(correct_genre)
-        return list
-
-    @property
-    def correct_production_countries(self):
-        corrected_production_countries = ast.literal_eval(self.production_countries)
-        list = []
-        for count in corrected_production_countries:
-            correct_production_country = count.get('name')
-            list.append(correct_production_country)
-        return list
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -87,12 +70,15 @@ class Reservation(models.Model):
             return datetime.date.today() < self.end_of_booking
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.time_of_booking = datetime.date.today()
-            self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
-            self.videotape.quantity -= 1
-            self.videotape.save()
-        return super(Reservation, self).save(*args, **kwargs)
+        if self.videotape.quantity > 0:
+            if not self.pk:
+                self.time_of_booking = datetime.date.today()
+                self.end_of_booking = self.time_of_booking + datetime.timedelta(days=3)
+                self.videotape.quantity -= 1
+                self.videotape.save()
+            return super(Reservation, self).save(*args, **kwargs)
+        else:
+            raise ValidationError('No copies available!')
 
     def get_absolute_url(self):
         return reverse("videotapes:reservation_list")

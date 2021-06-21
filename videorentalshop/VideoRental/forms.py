@@ -10,11 +10,6 @@ from videorentalshop.users.models import User
 
 
 class VideoTapeForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(VideoTapeForm, self).__init__(*args, **kwargs)
-        self.fields['genres'].initial = "[{'name': 'Comedy'}, {'name':'Action'}]"
-        self.fields['production_countries'].initial = "[{'name': 'USA'}, {'name':'Canada'}]"
-
     class Meta:
         model = VideoTape
         fields = '__all__'
