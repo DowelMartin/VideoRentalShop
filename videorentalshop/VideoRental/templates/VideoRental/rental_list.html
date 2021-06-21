@@ -1,20 +1,40 @@
 {% extends "base.html"%}
 
 {% block content %}
+<div class="container">
+  <div class="card border-0 shadow my-5">
+    <div class="card-body p-5">
+      <div class="row">
+        <a href="{%  url 'videotapes:create_rental'%}"
+           class="btn btn-danger"
+           style="font-size: x-large">
+          <i class="fa fa-times"></i>Rent
+        </a>
+      </div>
+      </br>
+      <div>
+        <h2 class="font-weight-light"> List of all rentals: </h2>
+        {% for rental in rentals %}
+        <ul class="" style="font-size: x-large">
+          <li>
+            <h3 class="font-weight-light"> Rental no {{rental.pk }}:</h3> Start: {{ rental.time_of_rent }}, End: {{ rental.end_of_rent }}</br>
+            Reservation: {{ rental.reservation }}</br>
 
-<div class="row">
-  <a href="{%  url 'videotapes:create_rental'%}"
-     class="btn btn-outline-danger">
-    <i class="fa fa-times"></i>Rent
-  </a>
-  {% for rental in rentals %}
-  <div class="col-md-4">
-      <p> {{ rental.time_of_rent }} </p>
-      <p> {{ rental.end_of_rent }} </p>
-      <p> {{ rental.reservation }} </p>
-      <p> {{ rental.is_returned }} </p>
+            {% if rental.is_returned %}
+            <p style="color: green">Returned: {{ rental.is_returned }}</p>
+            {% else %}
+            <p style="color: red">Returned: {{ rental.is_returned }}</p>
+            {% endif %}
+          </li>
+          </br>
+        </ul>
+        {% endfor %}
+      </div>
+      <div class="mb-auto" style="height: 20px"></div>
+      <p class="lead mb-0" style="font-size:18px; text-align: center">Software engineering project by Marcin Kołek & Ireneusz Przybyło</p>
+    </div>
+    </div>
   </div>
-  {% endfor %}
 </div>
 {% endblock %}
 
