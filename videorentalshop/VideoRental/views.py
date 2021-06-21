@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from VideoRental.models import VideoTape, Reservation, Rental
 from VideoRental.forms import VideoTapeForm, ReservationForm, RentalForm
+from VideoRental.filters import VideoTapeFilter
 
 
 class VideoTapeListView(ListView):
@@ -12,6 +13,9 @@ class VideoTapeListView(ListView):
     paginate_by = 100
 
     context_object_name = "videotapes"
+
+    def get_queryset(self):
+        return VideoTapeFilter(self.request.GET, queryset=super().get_queryset()).qs
 
 
 class VideoTapeDetailView(DetailView):
@@ -60,6 +64,7 @@ class RentalListView(ListView):
 class RentalCreateView(CreateView):
     model = Rental
     form_class = RentalForm
+
 
 
 
